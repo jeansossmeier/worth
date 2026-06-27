@@ -440,7 +440,7 @@ Include WORTH scoring in every ADR:
 | Time-to-value | 4 | First value in 2 weeks; full ROI in 3 months |
 | Horizon | 5 | Standards-based; multiple vendors available |
 
-**Total**: 20/25 → **Proceed**
+**Total**: 20/25 → **Proceed (pilot first)**
 
 ## Decision
 [Record the choice]
@@ -468,7 +468,7 @@ This catches accumulating complexity and prevents zombie technologies.
 <a name="expanded-dimensions"></a>
 ## 4. Expanded Dimensions
 
-The five core WORTH questions capture 80% of decisions. For high-stakes choices, expand your evaluation with these additional lenses.
+The five core WORTH questions are enough for most decisions. For high-stakes choices, expand your evaluation with these additional lenses.
 
 ### Cost of Delay & ROI Horizon
 
