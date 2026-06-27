@@ -5,7 +5,7 @@
 **Version:** 1.0a \
 **Author:** Jean Luck Sossmeier \
 **Date:** October 2025 \
-**Repository:** [github.com/jeansossmeier/worth-framework](https://github.com/jeansossmeier/worth-framework)
+**Repository:** [github.com/jeansossmeier/worth](https://github.com/jeansossmeier/worth)
 
 ---
 
@@ -50,7 +50,7 @@
 <a name="introduction"></a>
 ## 1. Introduction: The Problem with Technology Dogmas
 
-Software engineering is drowning in principles. KISS, DRY, YAGNI, SOLID, STUPID, CUPID—the list grows monthly. Each promises clarity, yet teams still waste months on Kubernetes setups they don't need, microservices that slow them down, and clean code rules that add more ceremony than value.
+Software engineering is drowning in principles. KISS, DRY, YAGNI, SOLID, STUPID, CUPID; the list grows monthly. Each promises clarity, yet teams still waste months on Kubernetes setups they don't need, microservices that slow them down, and clean code rules that add more ceremony than value.
 
 The problem isn't the principles themselves. The problem is treating them as universal laws rather than context-dependent tools.
 
@@ -58,7 +58,7 @@ The problem isn't the principles themselves. The problem is treating them as uni
 
 Behind every architectural debate, every technology choice, every process adoption, one question gets skipped:
 
-**Is it worth it—here, now, for us?**
+**Is it worth it, here, now, for us?**
 
 Not "is it best practice?" Not "what does Big Tech do?" Not "what's trending on Hacker News?"
 
@@ -68,19 +68,19 @@ Worth it. In your context. With your team. On your budget. For your timeline.
 
 Consider these common scenarios:
 
-**Language Wars**: Developers argue whether Python, Go, or Rust is "best"—ignoring that the answer depends entirely on your domain, team skills, hiring market, and performance requirements.
+**Language Wars**: Developers argue whether Python, Go, or Rust is "best", ignoring that the answer depends entirely on your domain, team skills, hiring market, and performance requirements.
 
-**Clean Code Extremism**: Teams wrap every primitive in a Value Object because a book said so—adding hundreds of lines of boilerplate to a throwaway migration script.
+**Clean Code Extremism**: Teams wrap every primitive in a Value Object because a book said so, adding hundreds of lines of boilerplate to a throwaway migration script.
 
-**"You Are Not Netflix"**: A three-person startup burns four weeks setting up Kubernetes because "it's how you scale"—never shipping the product that needed to prove market fit first.
+**"You Are Not Netflix"**: A three-person startup burns four weeks setting up Kubernetes because "it's how you scale", never shipping the product that needed to prove market fit first.
 
-**Process Bloat**: A seed-stage company adopts SAFe with two-week sprints and full ceremonies—while the market shifts weekly and competitors move daily.
+**Process Bloat**: A seed-stage company adopts SAFe with two-week sprints and full ceremonies, while the market shifts weekly and competitors move daily.
 
 Each of these decisions might be right somewhere. They're wrong when blindly applied without asking whether they're worth it in your specific situation.
 
 ### What WORTH Provides
 
-WORTH is a meta-principle that sits above all other engineering guidelines. It doesn't replace KISS, DRY, or YAGNI—it helps you decide when to apply them.
+WORTH is a meta-principle that sits above all other engineering guidelines. It doesn't replace KISS, DRY, or YAGNI; it helps you decide when to apply them.
 
 Think of it as a five-question litmus test you run before adopting any technology, pattern, or practice:
 
@@ -100,7 +100,7 @@ If you can't answer "yes" to at least three of these five questions with clear e
 
 **Senior Developers**: Needing guard-rails to push back on dogma without seeming obstinate.
 
-**Teams of Any Size**: From solo developers to hundred-person engineering orgs—context-aware decision-making scales.
+**Teams of Any Size**: From solo developers to hundred-person engineering orgs: context-aware decision-making scales.
 
 ### How to Use This Document
 
@@ -143,8 +143,8 @@ You need **BOTH** of these to proceed:
 **Why both checks matter**:
 - The "3 of 5" check prevents lukewarm "everything is a 3" scorecards
 - The total threshold ensures sufficient overall value
-- Strong yes on 3 dimensions might score [5,5,5,1,1] = 17 ✅ (passes both)
-- Neutral on all five might score [3,3,3,3,3] = 15 ⚠️ (passes total but lacks clear wins)
+- Strong yes on 3 dimensions might score [5,5,5,1,1] = 17 ✓ (passes both)
+- Neutral on all five might score [3,3,3,3,3] = 15 (passes total but lacks clear wins)
 
 If either check fails, **don't adopt it yet**. Re-evaluate when context changes.
 
@@ -180,9 +180,9 @@ Start by quantifying the pain you're trying to solve.
 - Growing technical debt with clear cost trajectory
 - Regulatory or security requirement
 
-**Example**: A team debates adopting GraphQL. The current REST API requires frontend developers to make 5-7 calls to render a dashboard. This happens for every page load across 10,000 daily users. That's real, frequent, measurable pain. ✅
+**Example**: A team debates adopting GraphQL. The current REST API requires frontend developers to make 5-7 calls to render a dashboard. This happens for every page load across 10,000 daily users. That's real, frequent, measurable pain. ✓
 
-**Counter-example**: A team considers GraphQL because "it's flexible and modern." No evidence of current API causing problems. ❌
+**Counter-example**: A team considers GraphQL because "it's flexible and modern." No evidence of current API causing problems. ✗
 
 ### O – Outcome > Overhead
 
@@ -206,7 +206,7 @@ Calculate whether the benefit outweighs the total cost.
 - Total cost of ownership (TCO) fully mapped
 - Net improvement in DORA metrics (deployment frequency, lead time, MTTR, change fail rate)
 
-**Example**: Migrating to a PaaS costs `$400/month` but saves 20 developer hours/month on infrastructure management. At `$100/hour` blended rate, that's `$2,000` in value for `$400` cost. Clear win. ✅
+**Example**: Migrating to a PaaS costs `$400/month` but saves 20 developer hours/month on infrastructure management. At `$100/hour` blended rate, that's `$2,000` in value for `$400` cost. Clear win. ✓
 
 **Regional Cost Note**: This framework uses US market rates circa 2024-2025. Adjust for your region:
 - **US/Western Europe**: 1.0x (baseline: `$100-150/hour` blended rate)
@@ -217,7 +217,7 @@ Calculate whether the benefit outweighs the total cost.
 
 Recalculate ROI using your actual rates to ensure accurate WORTH scoring.
 
-**Counter-example**: Adding Kubernetes to reduce deployment time from 5 minutes to 3 minutes, costing 2 weeks of setup and ongoing complexity. Marginal gain, huge overhead. ❌
+**Counter-example**: Adding Kubernetes to reduce deployment time from 5 minutes to 3 minutes, costing 2 weeks of setup and ongoing complexity. Marginal gain, huge overhead. ✗
 
 ### R – Right-Sized for the Team
 
@@ -241,9 +241,9 @@ Assess whether your team can realistically build and maintain this.
 - Clear documentation and community support
 - Graceful learning curve
 
-**Example**: A team of experienced Java developers considers Spring Boot vs. Micronaut. Both fit their skill set and mental models. ✅
+**Example**: A team of experienced Java developers considers Spring Boot vs. Micronaut. Both fit their skill set and mental models. ✓
 
-**Counter-example**: Same Java team considers rewriting everything in Rust to "learn something new" despite zero Rust experience and aggressive ship dates. ❌
+**Counter-example**: Same Java team considers rewriting everything in Rust to "learn something new" despite zero Rust experience and aggressive ship dates. ✗
 
 ### T – Time-to-Value
 
@@ -267,9 +267,9 @@ Determine if the investment delivers value within your planning horizon.
 - Improves team velocity starting now
 - Clear milestones with measurable progress
 
-**Example**: Adopting feature flags delivers value immediately—first feature uses flags for safe rollout within one sprint. ✅
+**Example**: Adopting feature flags delivers value immediately: first feature uses flags for safe rollout within one sprint. ✓
 
-**Counter-example**: Rewriting the entire app to microservices with no customer value until completion 8 months from now. ❌
+**Counter-example**: Rewriting the entire app to microservices with no customer value until completion 8 months from now. ✗
 
 ### H – Horizon Flexibility
 
@@ -293,9 +293,9 @@ Evaluate whether this choice keeps options open or creates lock-in.
 - Strong community, multiple vendors
 - Reversible via feature flags or strangler pattern
 
-**Example**: Using PostgreSQL (open standard, multiple hosts, dump/restore works everywhere) vs. proprietary cloud database with custom query language. PostgreSQL wins on flexibility. ✅
+**Example**: Using PostgreSQL (open standard, multiple hosts, dump/restore works everywhere) vs. proprietary cloud database with custom query language. PostgreSQL wins on flexibility. ✓
 
-**Counter-example**: Building entire architecture around a startup vendor's beta SDK with no export functionality. ❌
+**Counter-example**: Building entire architecture around a startup vendor's beta SDK with no export functionality. ✗
 
 ---
 
@@ -358,7 +358,7 @@ Record your scoring in an Architecture Decision Record so the rationale is searc
 
 | Dimension | Score | Evidence |
 |-----------|-------|----------|
-| W – Weigh | 2 | Problem is tiny—current single-server traffic is under 100 users/day |
+| W – Weigh | 2 | Problem is tiny; current single-server traffic is under 100 users/day |
 | O – Outcome | 1 | Setup takes 2-4 weeks; benefit is handling 10x traffic we don't have |
 | R – Right-sized | 1 | No Kubernetes experience on team; steep learning curve |
 | T – Time-to-value | 1 | Delays MVP by 3+ weeks; could use PaaS and ship this week |
@@ -366,7 +366,7 @@ Record your scoring in an Architecture Decision Record so the rationale is searc
 
 **Total**: 8/25
 
-**Verdict**: ❌ Skip. Use a PaaS (Heroku, Render, Railway) or simple VM with CI/CD. Re-evaluate at 10,000+ daily active users or when hiring experienced SRE.
+**Verdict**: ✗ Skip. Use a PaaS (Heroku, Render, Railway) or simple VM with CI/CD. Re-evaluate at 10,000+ daily active users or when hiring experienced SRE.
 
 ---
 
@@ -384,7 +384,7 @@ Record your scoring in an Architecture Decision Record so the rationale is searc
 
 **Total**: 16/25
 
-**Verdict**: ⚠️ Prototype. Start with a modular monolith using strong boundaries (modules, separate databases). Extract 1-2 services as pilot. Measure DORA metrics. Expand if successful.
+**Verdict**: Prototype. Start with a modular monolith using strong boundaries (modules, separate databases). Extract 1-2 services as pilot. Measure DORA metrics. Expand if successful.
 
 ---
 
@@ -402,7 +402,7 @@ Record your scoring in an Architecture Decision Record so the rationale is searc
 
 **Total**: 18/25
 
-**Verdict**: ✅ Probably worth it. Low cost, raises consistency, reversible. Proceed if it doesn't block higher-priority work.
+**Verdict**: ✓ Probably worth it. Low cost, raises consistency, reversible. Proceed if it doesn't block higher-priority work.
 
 ---
 
@@ -590,7 +590,7 @@ Wardley Mapping keeps you from reinventing commodities (e.g., bespoke logging) w
 - Place each component on the evolution axis: Genesis → Custom → Product → Commodity
 - Invest in differentiators; buy or use open-source commodities
 
-**Example**: Custom logging is a commodity—use Datadog or ELK. Your unique pricing algorithm is a differentiator—build and optimize it.
+**Example**: Custom logging is a commodity: use Datadog or ELK. Your unique pricing algorithm is a differentiator: build and optimize it.
 
 **Diagnostic Questions**:
 - Is this component a differentiator or a utility?
@@ -617,7 +617,7 @@ Sunk-cost fallacy, resume-driven development, or "that's how FAANG does it" can 
 
 **How to Counter**:
 - Ask: "If another team proposed this, would we still agree?"
-- Rotate the "no" voice—assign someone to argue against the decision
+- Rotate the "no" voice: assign someone to argue against the decision
 - Separate "what I want to learn" from "what the business needs"
 
 **Diagnostic Questions**:
@@ -808,6 +808,8 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 <a name="practical-examples"></a>
 ## 6. Practical Examples
 
+*Except where a specific company is named and publicly documented (such as Amazon Prime Video below), the cases and figures in this document are illustrative composites of common patterns, not measurements from a single named organization.*
+
 ### Case 1: Three-Developer Bootstrapped SaaS Debates Kubernetes
 
 **Context**:
@@ -826,7 +828,7 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 
 **Total**: 8/25
 
-**Verdict**: ❌ Skip. Use a PaaS (Railway, Render, Heroku). k8s adds 4+ weeks with zero customer value. Re-evaluate at 10,000+ DAU or when hiring experienced SRE.
+**Verdict**: ✗ Skip. Use a PaaS (Railway, Render, Heroku). k8s adds 4+ weeks with zero customer value. Re-evaluate at 10,000+ DAU or when hiring experienced SRE.
 
 **What They Did**: Deployed on Railway for `$20/month`. Shipped MVP in 2 weeks. Gained 500 paying customers before revisiting infrastructure.
 
@@ -843,7 +845,7 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 **WORTH Outcome**: Worth it in stages
 
 **Rationale**:
-- **W = 4**: Real pain—teams blocking each other
+- **W = 4**: Real pain, teams blocking each other
 - **O = 3**: Faster scaling, but ops overhead increases
 - **R = 3**: Two SREs on staff with experience
 - **T = 2**: Full migration takes 6 months
@@ -851,7 +853,7 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 
 **Total**: 15/25
 
-**Verdict**: ⚠️ Prototype. Start with strongest bounded contexts. Extract payment processing and auth as separate services. Measure DORA metrics. Expand if successful.
+**Verdict**: Prototype. Start with strongest bounded contexts. Extract payment processing and auth as separate services. Measure DORA metrics. Expand if successful.
 
 **What They Did**:
 1. Extracted payments service (high isolation, PCI boundary)
@@ -900,7 +902,7 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 <a name="code-principles"></a>
 ## 7. Code Principles: Applying WORTH to Clean Code, SOLID, and Object Calisthenics
 
-WORTH is a meta-filter. Before adopting any coding rule—Uncle Bob's Clean Code, Jeff Bay's Object Calisthenics, SOLID principles—run the five questions.
+WORTH is a meta-filter. Before adopting any coding rule (Uncle Bob's Clean Code, Jeff Bay's Object Calisthenics, SOLID principles), run the five questions.
 
 ### How WORTH Sits Above Code Principles
 
@@ -1003,7 +1005,7 @@ Instead, every guideline must pay rent in the form of clearer code, faster deliv
 
 **Worth It**: Distributed teams sprinting in parallel needing clear boundaries
 
-**Not Worth It**: Solo developer on hobby app—sticky notes beat fine-grained backlog
+**Not Worth It**: Solo developer on hobby app; sticky notes beat fine-grained backlog
 
 ---
 
@@ -1148,7 +1150,7 @@ This is the most contentious architecture debate. WORTH cuts through the noise.
 
 **When It Pays Off**: Domains with clear incumbent (Python for ML, Go for network daemons)
 
-**When It Hurts**: Polyglot hobby projects that quietly become production—ops chaos, talent shortage, fragmented tooling
+**When It Hurts**: Polyglot hobby projects that quietly become production: ops chaos, talent shortage, fragmented tooling
 
 **WORTH Question**: Does this language choice improve outcomes more than the cost of switching, hiring, and maintaining two stacks?
 
@@ -1313,7 +1315,7 @@ Rotate a "devil's advocate" who:
 
 **Why It Happens**: Individual career goals override business needs
 
-**Guard-rail**: Bias gate—mandatory counter-proposal from someone outside the team who argues for simpler alternative
+**Guard-rail**: Bias gate: mandatory counter-proposal from someone outside the team who argues for simpler alternative
 
 **Example**:
 - **Proposed**: Rewrite in Rust because "it's the future"
@@ -1484,12 +1486,12 @@ Track infrastructure and operational costs quarterly:
 4. **Week 12**: Re-measure
 
 **Results**:
-- Page load: 1.3s (38% faster) ✅
-- API calls: 1 (86% reduction) ✅
-- Developer velocity: 6 stories/sprint (25% slower) ❌
-- On-call incidents: +2 (query complexity bugs) ❌
+- Page load: 1.3s (38% faster) ✓
+- API calls: 1 (86% reduction) ✓
+- Developer velocity: 6 stories/sprint (25% slower) ✗
+- On-call incidents: +2 (query complexity bugs) ✗
 
-**Re-score WORTH**: 14/25 (dropped from 17)
+**Re-score WORTH**: 15/25 (dropped from 17)
 - O = 3 (speed gain offset by velocity loss)
 - R = 2 (team still struggling)
 
@@ -1517,6 +1519,8 @@ Repeat this process. Over time, asking "Is it worth it?" becomes muscle memory, 
 
 <a name="case-studies"></a>
 ## 15. Case Studies: WORTH in Practice
+
+*These case studies are illustrative composites of common patterns; the figures are representative rather than measured from a single named company.*
 
 #### Case Study 1: Bootstrapped SaaS - Railway Over Kubernetes
 
@@ -1623,7 +1627,7 @@ Repeat this process. Over time, asking "Is it worth it?" becomes muscle memory, 
 
 **Lessons Learned**:
 - Hybrid architecture was sweet spot
-- Didn't extract everything—kept stable domains in monolith
+- Didn't extract everything; kept stable domains in monolith
 - PCI isolation made compliance audit 50% faster
 - Now template for future service extraction
 
@@ -1650,8 +1654,8 @@ TDD struggles for:
 
 | Context | W | O | R | T | H | Total | Verdict |
 |---------|---|---|---|---|---|-------|---------|
-| Billing engine | 5 | 5 | 4 | 3 | 5 | 22 | ✅ TDD worth it |
-| One-off migration | 2 | 1 | 3 | 1 | 3 | 10 | ❌ Post-hoc tests sufficient |
+| Billing engine | 5 | 5 | 4 | 3 | 5 | 22 | ✓ TDD worth it |
+| One-off migration | 2 | 1 | 3 | 1 | 3 | 10 | ✗ Post-hoc tests sufficient |
 
 ---
 
@@ -1667,8 +1671,8 @@ TDD struggles for:
 
 | Scenario | Cold Start Acceptable? | Debugging Needs | Lock-In Risk | Verdict |
 |----------|----------------------|----------------|--------------|---------|
-| Image resize API | Yes (async) | Low | Low | ✅ Lambda |
-| Real-time chat | No | High | High | ❌ PaaS/VM |
+| Image resize API | Yes (async) | Low | Low | ✓ Lambda |
+| Real-time chat | No | High | High | ✗ PaaS/VM |
 
 **Rollback Story**: A startup moved to Lambda for all APIs. Debugging production issues took 5x longer (no SSH, CloudWatch delays). After 4 months, moved critical path back to EC2, kept async jobs on Lambda. Hybrid won.
 
@@ -1686,8 +1690,8 @@ TDD struggles for:
 
 | Use Case | Consistency Needs | Traceability | Latency | Verdict |
 |----------|------------------|--------------|---------|---------|
-| Order processing | Strong | High | Low | ❌ Request/response + DB transaction |
-| Analytics events | Eventual OK | Medium | High OK | ✅ Event stream |
+| Order processing | Strong | High | Low | ✗ Request/response + DB transaction |
+| Analytics events | Eventual OK | Medium | High OK | ✓ Event stream |
 
 ---
 
@@ -1861,7 +1865,7 @@ If < 3 checks pass, skip it.
 | Cost of Delay | | | |
 | Cognitive Load | | | |
 | DORA Impact | | | |
-| Compliance | ✅/❌ | ✅/❌ | ✅/❌ |
+| Compliance | ✓/✗ | ✓/✗ | ✓/✗ |
 
 ---
 
@@ -1965,9 +1969,9 @@ If < 3 checks pass, skip it.
 
 | Infrastructure Scale | IaC Worth It? | Why |
 |---------------------|--------------|-----|
-| 1-2 VMs | ❌ No | Manual setup faster; fewer changes |
-| 3-10 servers, multiple envs | ✅ Yes | Reproducibility saves time; disaster recovery |
-| 50+ resources, multi-region | ✅ Definitely | Manual impossible; drift prevention critical |
+| 1-2 VMs | ✗ No | Manual setup faster; fewer changes |
+| 3-10 servers, multiple envs | ✓ Yes | Reproducibility saves time; disaster recovery |
+| 50+ resources, multi-region | ✓ Definitely | Manual impossible; drift prevention critical |
 
 ---
 
@@ -1981,9 +1985,9 @@ If < 3 checks pass, skip it.
 
 | Stage | Flag Complexity | Worth It? | Rationale |
 |-------|----------------|-----------|-----------|
-| MVP (< 100 users) | High (10+ flags) | ❌ No | Just deploy and monitor |
-| Growth (1k-10k users) | Medium (targeted rollouts) | ✅ Yes | Gradual rollout reduces risk |
-| Scale (100k+ users) | Managed (kill-switch only) | ✅ Definitely | Instant rollback critical |
+| MVP (< 100 users) | High (10+ flags) | ✗ No | Just deploy and monitor |
+| Growth (1k-10k users) | Medium (targeted rollouts) | ✓ Yes | Gradual rollout reduces risk |
+| Scale (100k+ users) | Managed (kill-switch only) | ✓ Definitely | Instant rollback critical |
 
 ---
 
@@ -1997,9 +2001,9 @@ If < 3 checks pass, skip it.
 
 | Team Situation | Synchronous Standups | Async Updates |
 |----------------|---------------------|---------------|
-| Co-located team, 5-10 devs | ✅ 15-min standup works | - |
-| Remote team, < 5 devs, tight communication | ❌ Overhead > value | ✅ Daily Slack updates |
-| Remote team, 10+ devs, coordination heavy | ✅ Yes, but 2-3x/week | ✅ + async for off-days |
+| Co-located team, 5-10 devs | ✓ 15-min standup works | - |
+| Remote team, < 5 devs, tight communication | ✗ Overhead > value | ✓ Daily Slack updates |
+| Remote team, 10+ devs, coordination heavy | ✓ Yes, but 2-3x/week | ✓ + async for off-days |
 
 ---
 
@@ -2013,9 +2017,9 @@ If < 3 checks pass, skip it.
 
 | Deployment Frequency | Git Flow | Trunk-Based |
 |---------------------|----------|-------------|
-| Monthly releases | ✅ Acceptable | - |
-| Weekly releases | ⚠️ Painful merges | ✅ Better flow |
-| Daily+ releases | ❌ Bottleneck | ✅ Essential |
+| Monthly releases | ✓ Acceptable | - |
+| Weekly releases | Painful merges | ✓ Better flow |
+| Daily+ releases | ✗ Bottleneck | ✓ Essential |
 
 ---
 
@@ -2023,15 +2027,15 @@ If < 3 checks pass, skip it.
 
 **Dogma**: "DDD means full bounded-context everything with event storming and aggregates"
 
-**Reality Check**: Heavy DDD artifacts pay off in large, domain-rich organizations—not in simple CRUD SaaS v1.
+**Reality Check**: Heavy DDD artifacts pay off in large, domain-rich organizations, not in simple CRUD SaaS v1.
 
 **WORTH Application**:
 
 | Domain Complexity | Full DDD | Lite DDD (just bounded contexts) |
 |------------------|----------|--------------------------------|
-| Simple CRUD (admin panel, CMS) | ❌ Overkill | ✅ Basic modules enough |
-| Medium (e-commerce, SaaS) | ⚠️ Selective use | ✅ Yes, skip event sourcing |
-| Complex (fintech, healthcare) | ✅ Justified | - |
+| Simple CRUD (admin panel, CMS) | ✗ Overkill | ✓ Basic modules enough |
+| Medium (e-commerce, SaaS) | Selective use | ✓ Yes, skip event sourcing |
+| Complex (fintech, healthcare) | ✓ Justified | - |
 
 ---
 
@@ -2103,7 +2107,7 @@ This framework improves through real-world application. Share your WORTH decisio
 **Lesson**: [What you'd do differently]
 ```
 
-Submit case studies and feedback to: **github.com/jeansossmeier/worth-framework**
+Submit case studies and feedback to: **github.com/jeansossmeier/worth**
 
 ---
 
