@@ -7,6 +7,8 @@
 **Date:** October 2025 \
 **Repository:** [github.com/jeansossmeier/worth](https://github.com/jeansossmeier/worth)
 
+> **Important boundaries:** WORTH is a decision aid, not legal, financial, security, compliance, or procurement advice. Examples, costs, thresholds, and outcomes are illustrative unless directly cited. Verify current vendor pricing, regional availability, legal obligations, and compliance requirements with qualified professionals before relying on them.
+
 ---
 
 ## Table of Contents
@@ -135,18 +137,20 @@ WORTH is a pragmatic litmus test for every architectural, process, or tooling ch
 
 ### Rule of Thumb
 
-You need **BOTH** of these to proceed:
+You need **ALL** of these to proceed beyond discussion:
 
 1. **Qualitative check**: Crisp, evidence-based "yes" on at least **three** of the five letters
 2. **Quantitative check**: Total score ≥ 15/25 (see detailed scoring in Section 3)
+3. **Floor check**: No score of **1**. Any score of **2** requires explicit mitigation before adoption.
 
-**Why both checks matter**:
+**Why the checks matter**:
 - The "3 of 5" check prevents lukewarm "everything is a 3" scorecards
 - The total threshold ensures sufficient overall value
-- Strong yes on 3 dimensions might score [5,5,5,1,1] = 17 ✓ (passes both)
+- The floor check prevents a high total from hiding a fatal weakness
+- Strong yes on 3 dimensions with fatal gaps might score [5,5,5,1,1] = 17, but it still fails because two dimensions are red
 - Neutral on all five might score [3,3,3,3,3] = 15 (passes total but lacks clear wins)
 
-If either check fails, **don't adopt it yet**. Re-evaluate when context changes.
+If any check fails, **don't adopt it yet**. Improve the weak dimension, run a reversible pilot, or re-evaluate when context changes.
 
 ### Why WORTH Sits Above Other Principles
 
@@ -332,17 +336,17 @@ Example: "Release lead-time increased from 3 days to 9 days after adding the rep
 **Step 3: Calculate Total**
 
 Add the five scores:
-- **Total < 15**: Postpone or kill
-- **15-20**: Prototype or pilot first
-- **21-25**: Proceed with confidence
+- **Total < 15**: Postpone, simplify, or kill
+- **15-20**: Investigate or pilot only; do not treat as adoption approval
+- **21-25**: Adopt only if the floor check and hard constraints pass
 
-**Calibration Note**: These thresholds are starting points based on typical team contexts. Adjust for your organization:
-- **Small teams (< 15 people)**: Consider lowering to 12+/17+/20+ as fewer concrete problems exist at small scale
+**Calibration Note**: These thresholds are author heuristics, not validated benchmarks. Adjust how much process you use, but keep the floor check:
+- **Small teams (< 15 people)**: Narrow the scope and prefer reversible experiments; do not lower the R/T safety floor just because the team is small
 - **Large teams (50+ people)**: Consider raising to 17+/21+/24+ as more problems emerge at scale
 - **Risk-averse domains (fintech, healthcare)**: Raise thresholds; require higher confidence
 - **Fast-moving startups**: Lower thresholds slightly; bias toward action
 
-Re-calibrate quarterly based on decision outcomes. If >30% of "proceed" decisions fail, raise your thresholds.
+Re-calibrate quarterly based on decision outcomes. If many "proceed" decisions fail, inspect which dimension was over-scored before changing thresholds.
 
 **Step 4: Document in ADR**
 
@@ -384,7 +388,7 @@ Record your scoring in an Architecture Decision Record so the rationale is searc
 
 **Total**: 16/25
 
-**Verdict**: Prototype. Start with a modular monolith using strong boundaries (modules, separate databases). Extract 1-2 services as pilot. Measure DORA metrics. Expand if successful.
+**Verdict**: Pilot only. Start with a modular monolith using strong boundaries and module-owned data. Extract 1-2 services only as an evidence-gathering pilot. Measure delivery and operational impact before expanding.
 
 ---
 
@@ -421,6 +425,10 @@ Add a "WORTH Check" section:
 - [ ] **H** – Is this decision reversible or does it create lock-in?
 
 **Total Score**: __/25
+**Clear yes count**: __/5
+**Any score ≤ 2?** __ If yes, mitigation required before adoption.
+**Unknowns?** __ Replace unknowns with evidence through a spike or pilot.
+**Hard constraints passed?** Security / compliance / privacy / procurement: __
 ```
 
 #### Architecture Decision Record (ADR)
@@ -440,7 +448,7 @@ Include WORTH scoring in every ADR:
 | Time-to-value | 4 | First value in 2 weeks; full ROI in 3 months |
 | Horizon | 5 | Standards-based; multiple vendors available |
 
-**Total**: 20/25 → **Proceed (pilot first)**
+**Total**: 20/25 → **Pilot only; adoption requires no floor violations**
 
 ## Decision
 [Record the choice]
@@ -497,7 +505,7 @@ High-skill tools are fine until cognitive load crosses what a single team can sa
 **Why It Matters**: Teams have limited mental bandwidth. Each new technology, pattern, or service consumes attention that could go toward delivering features.
 
 **How to Measure**:
-- Team Topologies suggests teams handle one main responsibility + one interaction mode
+- Team Topologies frames cognitive load through team types and interaction modes such as collaboration, X-as-a-Service, and facilitation
 - Count technologies in the stack (languages, frameworks, databases, queues, deployment platforms)
 - Survey developers: "Do you feel overloaded?" (1-5 scale)
 
@@ -516,23 +524,23 @@ High-skill tools are fine until cognitive load crosses what a single team can sa
 
 ### Delivery Performance (DORA Metrics)
 
-If a decision lowers deployment frequency or raises change-fail percentage, beware: you've traded adaptability for "best practice" theater.
+If a decision lowers deployment frequency or raises change-fail percentage, beware: you may have traded adaptability for "best practice" theater.
 
-**Why It Matters**: The four DORA metrics (deployment frequency, lead time for changes, time to restore service, change failure rate) predict organizational performance.
+**Why It Matters**: DORA research associates software-delivery performance metrics with organizational outcomes. Use the traditional Four Keys where useful, and check current DORA reports before treating any benchmark as canonical.
 
 **How to Measure**:
 - Run an A/B comparison: pilot branch vs. baseline
 - Track metrics for 2-4 sprints before and after adoption
 - Watch for regression in any of the four keys
 
-**DORA Four Key Metrics**:
+**Traditional DORA Four Key Metrics**:
 
-| Metric | What It Measures | Elite Performance |
+| Metric | What It Measures | Example High-Performance Signal |
 |--------|------------------|-------------------|
-| Deployment Frequency | How often you deploy to production | Multiple times per day |
-| Lead Time for Changes | Time from commit to production | Less than one hour |
-| Time to Restore Service | Time to recover from incidents | Less than one hour |
-| Change Failure Rate | % of deployments causing incidents | 0-15% |
+| Deployment Frequency | How often you deploy to production | Frequent, low-friction production deploys |
+| Lead Time for Changes | Time from commit to production | Short, predictable flow from change to release |
+| Time to Restore Service | Time to recover from incidents | Fast restoration after customer-impacting issues |
+| Change Failure Rate | % of deployments causing incidents | Low rate of release-caused incidents |
 
 **Note for Non-Continuous Teams**: DORA metrics reflect continuous delivery practices. If your team operates on planned release cycles (quarterly enterprise software, regulated deployments), substitute relevant metrics:
 - **Release Quality**: Defects per release, customer-reported issues
@@ -629,19 +637,19 @@ Sunk-cost fallacy, resume-driven development, or "that's how FAANG does it" can 
 
 ### Compliance & Security
 
-Regulated domains (health, fintech) may hard-block certain stacks. Map legal constraints early or your WORTH score is fiction.
+Regulated domains may hard-block certain stacks. Map legal, security, privacy, and procurement constraints early or your WORTH score is fiction.
 
 **Why It Matters**: Legal requirements trump architecture preferences. Compliance failures carry fines, shutdowns, and reputation damage.
 
-**Key Regulations**:
-- **HIPAA** (health): Encryption, audit logs, breach notification
-- **PCI DSS** (payments): Tokenization, network segmentation, logging
-- **GDPR/LGPD** (privacy): Data minimization, consent, right to deletion
-- **SOC 2** (enterprise): Security controls, availability, confidentiality
+**Common obligations and control frameworks**:
+- **HIPAA** (covered health-data contexts): privacy, security, breach-notification, and business-associate obligations where applicable
+- **PCI DSS** (payment-card environments): tokenization, network segmentation, logging, and scope control
+- **GDPR/LGPD** (personal data): lawful basis, minimization, rights handling, transfer safeguards, and retention controls
+- **SOC 2** (audit framework, not a law): controls for security, availability, confidentiality, processing integrity, or privacy depending on scope
 
 **Diagnostic Questions**:
 - Which regulations apply to our domain?
-- Does this technology meet compliance requirements out-of-box?
+- Can this technology support the controls we need after proper configuration, contracts, process, and audit review?
 - What's the audit burden of this choice?
 
 ---
@@ -663,7 +671,7 @@ TCO often dwarfs initial build effort. Factor on-call load, infra cost curves, l
 - Include hidden costs: on-call, debugging, tribal knowledge loss
 - Compare against alternatives (build vs. buy)
 
-**Example**: Kubernetes costs zero to download but requires dedicated SRE time (estimate `$150k/year` salary + overhead). A PaaS costs `$10k/year` but needs minimal ops attention. True cost comparison: k8s = `$150k+`, PaaS = `$10k`.
+**Example assumption**: Kubernetes costs zero to download but may require dedicated SRE time. A PaaS may cost more per unit but need far less operations attention. Use your actual compensation, vendor pricing, support, and on-call costs before comparing TCO.
 
 ---
 
@@ -717,20 +725,19 @@ For high-stakes decisions, use this expanded canvas:
 3. Ambitious leap
 
 ## Scoring Table
-| Dimension | Option 1 | Option 2 | Option 3 | Weight |
-|-----------|----------|----------|----------|--------|
+| Dimension | Option 1 | Option 2 | Option 3 | Scrutiny |
+|-----------|----------|----------|----------|----------|
 | W – Weigh | 3 | 4 | 5 | High |
 | O – Outcome | 2 | 4 | 3 | High |
 | R – Right-sized | 5 | 4 | 2 | High |
 | T – Time-to-value | 5 | 3 | 1 | High |
 | H – Horizon | 4 | 4 | 2 | Medium |
-| **Core WORTH** | **19** | **19** | **13** | - |
-| Cost of Delay | 4 | 3 | 1 | High |
-| Cognitive Load | 5 | 3 | 1 | High |
-| DORA Impact | 3 | 4 | 2 | High |
-| Risk | 5 | 3 | 2 | Medium |
-| Strategic Fit | 3 | 4 | 5 | Medium |
-| **Extended Total** | **39** | **36** | **24** | - |
+| **Core WORTH** | **19** | **19** | **13** | Unweighted |
+| Cost of Delay | 4 | 3 | 1 | Discussion lens |
+| Cognitive Load | 5 | 3 | 1 | Discussion lens |
+| Delivery Impact | 3 | 4 | 2 | Discussion lens |
+| Risk | 5 | 3 | 2 | Discussion lens |
+| Strategic Fit | 3 | 4 | 5 | Discussion lens |
 
 ## Bias Check
 - Option 1: Low risk might mean stagnation
@@ -774,7 +781,7 @@ Always consider baseline, incremental, and ambitious approaches.
 
 #### Step 3: Score Every Option Across WORTH + Extended Lenses
 
-Use 1-5 scale. Mark unknowns as -1 multiplier.
+Use a 1-5 scale. Mark unknowns as `U`, not as a number. A `U` means "not enough evidence for adoption"; run a spike or pilot to replace it with evidence.
 
 | Dimension | Option A | Option B | Option C |
 |-----------|----------|----------|----------|
@@ -830,7 +837,7 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 
 **Verdict**: ✗ Skip. Use a PaaS (Railway, Render, Heroku). k8s adds 4+ weeks with zero customer value. Re-evaluate at 10,000+ DAU or when hiring experienced SRE.
 
-**What They Did**: Deployed on Railway for `$20/month`. Shipped MVP in 2 weeks. Gained 500 paying customers before revisiting infrastructure.
+**Illustrative path**: Deploy on a PaaS, ship the MVP quickly, and revisit infrastructure only after deployment, reliability, or cost pain becomes concrete.
 
 ---
 
@@ -842,7 +849,7 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 - Release collisions weekly
 - Current: Modular monolith
 
-**WORTH Outcome**: Worth it in stages
+**WORTH Outcome**: Pilot in stages; adoption requires evidence from the first extraction
 
 **Rationale**:
 - **W = 4**: Real pain, teams blocking each other
@@ -853,9 +860,9 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 
 **Total**: 15/25
 
-**Verdict**: Prototype. Start with strongest bounded contexts. Extract payment processing and auth as separate services. Measure DORA metrics. Expand if successful.
+**Verdict**: Pilot only. Start with the strongest bounded context. Extract payment processing first, measure delivery and operational impact, and expand only if the floor-rule concerns are mitigated.
 
-**What They Did**:
+**Illustrative pilot path**:
 1. Extracted payments service (high isolation, PCI boundary)
 2. Ran for 3 months, measured deployment frequency (+40%)
 3. Extracted auth service
@@ -867,14 +874,14 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 
 ### Case 3: Amazon Prime Video's Targeted Service Consolidation
 
-**Context**: In a well-documented case, Amazon Prime Video cut infrastructure costs by 90% by consolidating their video quality monitoring service from a distributed microservices architecture into a single, more efficient process.
+**Context**: Amazon reported that one Prime Video audio/video monitoring workload reduced infrastructure cost by over 90% after consolidating a distributed serverless design into a single-process service running on EC2/ECS. Pin the exact source before quoting this in formal publication.
 
-**Why It's a Key Example**: This was **not** an abandonment of microservices. It was a targeted application of WORTH thinking to a specific component where the distributed approach had become too costly and complex. It proves that even at massive scale, architectural choices are component-specific, not all-or-nothing dogmas. The rest of Amazon's platform remains one of the largest microservice deployments in the world.
+**Why It's a Key Example**: This was **not** an abandonment of microservices. It illustrates that even at massive scale, architectural choices are component-specific, not all-or-nothing dogmas.
 
 **Original Problem**: Needed to scale quality monitoring across thousands of streams.
 
 **Initial Distributed Approach**:
-- Split monitoring into 5+ separate services
+- Split monitoring into multiple distributed components
 - Used AWS Step Functions for orchestration
 - Hit scaling limits and cost overruns for this specific use case
 
@@ -882,18 +889,17 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 - **W = 3**: Problem still exists but architecture didn't solve it
 - **O = 1**: Infrastructure costs exploded relative to value
 - **R = 2**: Operational complexity became unsustainable
-- **T = 1**: Development velocity tanked
+- **T = 1**: The architecture delayed value because the cost/scaling bottleneck dominated the design
 - **H = 2**: Hard to back out, but they did it anyway
 
 **Total**: 9/25 (after implementation)
 
-**What They Did**: Consolidated the monitoring service into a single process. Kept logical module boundaries within the service. Reduced monitoring costs 90%. Increased processing throughput 3x.
+**Reported change**: The monitoring workload was consolidated into a single process while keeping logical module boundaries. Amazon reported infrastructure cost reduction of over 90%.
 
 **Lesson**: **Revisit WORTH scores yearly**. Scale and cost assumptions can flip, making previously "correct" architecture wrong. Also: architectural decisions are component-specific, not all-or-nothing. You can consolidate one service while keeping others distributed.
 
 **Further Reading**:
-- Prime Video Tech Blog post on the migration
-- Discussions on Hacker News and r/programming
+- Prime Video engineering write-up on scaling the audio/video monitoring service and reducing costs. Verify the current primary URL or archived copy before formal citation.
 
 ---
 
@@ -1085,7 +1091,7 @@ This is the most contentious architecture debate. WORTH cuts through the noise.
 - **W = 4-5**: Multiple teams, release collision pain
 - **O = 3-4**: Ops overhead justified by independent scaling
 - **R = 3-4**: Team has SRE/DevOps expertise
-- **T = 2-3**: Migration takes months but unlocks velocity
+- **T = 3**: Migration has a staged path that creates measurable value before full extraction
 - **H = 4**: Polyglot flexibility, independent evolution
 
 **Signals**:
@@ -1098,15 +1104,15 @@ This is the most contentious architecture debate. WORTH cuts through the noise.
 
 #### The Hybrid Middle Ground: Modular Monolith
 
-**WORTH Profile**: Often scores highest (20-23/25)
+**WORTH Profile**: Often scores well because it preserves delivery speed while adding boundaries
 
 **Characteristics**:
 - Logical modules with strong boundaries
-- Shared database but separate schemas
+- Module-owned data boundaries; separate schemas can help, but are not required
 - Single deployment artifact
 - Can extract services later when justified
 
-**When It's Best**: Most of the time, especially for teams in the 10-40 developer range.
+**When It's Best**: Often useful for teams that need clearer boundaries but do not yet need independent deployment for every domain.
 
 ---
 
@@ -1118,15 +1124,15 @@ This is the most contentious architecture debate. WORTH cuts through the noise.
 |--------|-------------|-------------|----------|----------|-------------|-------|
 | **Bare VM** | 2 (simple needs) | 4 (cheap, fast) | 5 (everyone knows) | 5 (deploy today) | 3 (harder to scale) | **19** |
 | **PaaS** | 3 (want auto-scale) | 5 (instant value) | 5 (no ops needed) | 5 (deploy today) | 4 (vendor lock manageable) | **22** |
-| **Kubernetes** | 4 (complex needs) | 3 (powerful but heavy) | 2 (need expertise) | 1 (weeks to setup) | 5 (max flexibility) | **15** |
+| **Kubernetes** | 4 (complex needs) | 3 (powerful but heavy) | 2 (need expertise) | 1 (weeks to setup) | 5 (max flexibility) | **15, but fails floor** |
 
-**Verdict for Most Teams < 50 Developers**: PaaS wins (Heroku, Render, Railway, Fly.io)
+**Default for many small-to-mid product teams without special infrastructure constraints**: Start with PaaS or a simple VM. Treat vendor names as examples, not endorsements.
 
-**When k8s Becomes Worth It**:
-- 50+ services needing orchestration
-- Multi-cloud strategy required
-- Cost optimization at massive scale (> `$50k/month` infra spend)
-- Team includes dedicated SREs
+**When k8s may become worth evaluating**:
+- Many services need orchestration, isolation, and scheduling that simpler platforms cannot provide
+- Multi-cloud or portability requirements are concrete, including data, IAM, networking, and operations
+- Measured infrastructure cost or utilization justifies the platform investment
+- Team includes dedicated operators or platform engineers
 
 ---
 
@@ -1278,7 +1284,7 @@ jobs:
 
 ### Backlog Refinement Rule
 
-Every story > 2 days of effort must link to its parent WORTH-scored ADR.
+Every story that adds durable complexity should link to its parent WORTH-scored ADR. Size alone is not enough; use this for new technologies, service boundaries, irreversible vendor choices, security/compliance impact, or material ongoing cost.
 
 **Example**:
 ```markdown
@@ -1391,22 +1397,22 @@ Rotate a "devil's advocate" who:
 ---
 
 <a name="measurement"></a>
-## 13. Measurement & Validation: Proving WORTH Works
+## 13. Measurement & Validation: Learning Whether WORTH Helps
 
 ### Metrics That Matter
 
-Track these to validate WORTH-driven decisions:
+Track these to learn whether WORTH-driven decisions age well in your context:
 
-#### 1. DORA Four Keys
+#### 1. Software Delivery Metrics
 
-| Metric | How WORTH Helps |
+| Metric | How WORTH May Help |
 |--------|----------------|
 | Deployment Frequency | T (Time-to-value) ensures choices accelerate shipping |
 | Lead Time for Changes | O (Outcome) prevents overhead that slows delivery |
 | Time to Restore | R (Right-sized) ensures team can operate without heroics |
 | Change Failure Rate | W (Weigh) focuses on real problems, not speculative fixes |
 
-**How to Measure**: Tools like Sleuth, LinearB, or custom scripts parsing git + deploy logs
+**How to Measure**: Use production deploy, incident, and change history over comparable windows. PR-local CI data can provide useful proxies, but it is not the same as DORA measurement.
 
 ---
 
@@ -1433,10 +1439,10 @@ Score > 16 = Overloaded (simplify stack)
 
 Track time from "proposal" to "decision made":
 
-- **Before WORTH**: Median 3 weeks of debate
-- **After WORTH**: Median 3 days with scorecard
+- **Before WORTH**: Median ______ of debate
+- **After WORTH**: Median ______ with scorecard
 
-**Goal**: Reduce decision paralysis while maintaining quality
+**Goal**: Reduce decision paralysis while maintaining quality. Fill in your own baseline; this document does not claim a universal improvement.
 
 ---
 
@@ -1444,9 +1450,9 @@ Track time from "proposal" to "decision made":
 
 What percentage of decisions get reversed within 6 months?
 
-- **Too High (> 30%)**: Scoring too optimistically; need more rigor
-- **Too Low (< 5%)**: Maybe too conservative; missing opportunities
-- **Healthy (10-20%)**: Acceptable learning rate
+- Track reversals with reasons and decision age.
+- High reversals may mean optimistic scoring, changing context, or healthy learning.
+- Very low reversals may mean good decisions, excessive conservatism, irreversibility, or under-reporting.
 
 ---
 
@@ -1560,12 +1566,10 @@ Repeat this process. Over time, asking "Is it worth it?" becomes muscle memory, 
 - Auto-deploy on git push
 - First customer within 2 weeks
 
-**6-Month Outcomes**:
-- 500 paying customers
-- `$12k` MRR
-- Infrastructure cost: `$85/month`
-- Zero downtime incidents
-- **WORTH re-score**: 23/25 (H improved from 4 to 5 based on proven migration path; could now scale to k8s if needed)
+**Composite outcome shape**:
+- Product ships before infrastructure becomes the bottleneck
+- Infrastructure cost remains small enough not to drive the roadmap
+- Re-score only when deployment, reliability, workload scheduling, or cost constraints become concrete
 
 **Lessons Learned**:
 - PaaS removed all infrastructure distraction
@@ -1616,19 +1620,18 @@ Repeat this process. Over time, asking "Is it worth it?" becomes muscle memory, 
 - **Month 4-5**: Extract auth service
 - **Month 6**: Stabilize, measure
 
-**6-Month Outcomes**:
-- Deployment frequency: 2/week → 6/week
-- Lead time: 7 days → 3.5 days
-- Change failure rate: 12% → 15% (slight increase during transition)
-- Infrastructure cost: +$800/month (acceptable)
-- Team satisfaction: +25% (survey)
+**Composite outcome shape**:
+- Deployment conflicts reduce for the extracted domains
+- Lead time improves where service ownership is clear
+- Change-failure rate may rise during transition, so the pilot needs close monitoring
+- Infrastructure and on-call cost increase, but stay acceptable if the W and O assumptions were true
 
-**WORTH Re-score**: 21/25 (validated)
+**WORTH Re-score**: Revisit after the pilot using measured delivery, incident, cost, and audit data.
 
 **Lessons Learned**:
 - Hybrid architecture was sweet spot
 - Didn't extract everything; kept stable domains in monolith
-- PCI isolation made compliance audit 50% faster
+- PCI isolation may reduce audit scope or review effort, depending on the environment
 - Now template for future service extraction
 
 ---
@@ -1664,7 +1667,7 @@ TDD struggles for:
 **Why It's a Dogma**: "Never think about servers again!" marketing obscures trade-offs.
 
 **Reality Check**:
-- **Wins**: Spiky traffic, infrastructure cost tied to usage, zero idle costs
+- **Wins**: Spiky traffic and reduced idle compute cost, while remembering that API gateways, queues, databases, observability, provisioned concurrency, and networking can still create baseline costs
 - **Loses**: Cold-start latency, opaque debugging, vendor lock-in
 
 **WORTH Application**:
@@ -1701,7 +1704,7 @@ TDD struggles for:
 
 **Reality Check**:
 - **Wins**: Rich clients querying complex object graphs, mobile apps with bandwidth constraints
-- **Loses**: N+1 query problems, complex caching, hard to secure joins, overkill for CRUD
+- **Loses**: N+1 query problems, complex caching, resolver-level authorization, query-depth limits, data exposure risk, and overkill for CRUD
 
 **WORTH Sidebar**:
 
@@ -1730,7 +1733,7 @@ TDD struggles for:
 - [ ] SOC 2 controls (if selling to enterprises)
 - [ ] Threat model reviewed (if internet-facing)
 
-If ANY are blocked, decision is vetoed regardless of WORTH score.
+If ANY are blocked, the option is outside the adoption set until qualified security, legal, compliance, or procurement reviewers resolve the block.
 ```
 
 ---
@@ -1743,8 +1746,8 @@ If ANY are blocked, decision is vetoed regardless of WORTH score.
 
 | Storage Type | When It Wins | When It Loses |
 |--------------|--------------|---------------|
-| **PostgreSQL (ACID)** | Relational data, strong consistency, complex queries | Massive write throughput, schemaless flexibility |
-| **MongoDB (BASE)** | Schemaless flexibility, horizontal scaling | Complex joins, strong consistency needs |
+| **PostgreSQL (relational)** | Relational data, strong transactional invariants, complex queries | Schemaless flexibility, some horizontal scaling shapes |
+| **MongoDB (document)** | Flexible document model, denormalized reads, tunable consistency | Complex joins or invariants if the model is poorly designed |
 | **Redis** | Caching, sessions, pub/sub | Primary data store, durability critical |
 | **NewSQL (CockroachDB)** | Need both ACID + horizontal scale | Low-write workloads, budget-constrained |
 
@@ -1756,15 +1759,15 @@ If ANY are blocked, decision is vetoed regardless of WORTH score.
 
 **Dogma**: "Full OTEL stack or you're flying blind"
 
-**Reality**: Observability has costs (infrastructure, cognitive load, vendor bills)
+**Reality**: Observability has costs (infrastructure, cognitive load, vendor bills). Size it by SLOs, blast radius, architecture complexity, and MTTR goals rather than user count alone.
 
 **WORTH Spectrum**:
 
-| Stage | Logging | Metrics | Tracing | APM | Cost |
-|-------|---------|---------|---------|-----|------|
-| MVP (< 1000 users) | Structured logs (free tier) | Basic (uptime, errors) | None | None | $0-50/mo |
-| Growth (1k-50k users) | Centralized (ELK/Datadog) | RED metrics | Critical paths | Optional | $200-1k/mo |
-| Scale (50k+ users) | Full OTEL | Full dashboard | Distributed | Full APM | $2k+/mo |
+| Context | Logging | Metrics | Tracing | APM | Cost Shape |
+|---------|---------|---------|---------|-----|------------|
+| Low criticality / simple architecture | Structured logs | Basic uptime/errors | None or sampled | None | Low |
+| Customer-facing / moderate complexity | Centralized logs | RED metrics | Critical paths | Optional | Medium |
+| High criticality / distributed architecture | Standardized telemetry | SLO dashboards | Distributed tracing | APM where useful | Higher |
 
 **WORTH Question**: Does the observability investment reduce MTTR enough to justify the cost?
 
@@ -1847,10 +1850,10 @@ If < 3 checks pass, skip it.
 
 ---
 
-## WORTH Scorecard (1-5 scale, unknown = -1)
+## WORTH Scorecard (1-5 scale, unknown = U)
 
-| Dimension | A | B | C | Weight |
-|-----------|---|---|---|--------|
+| Dimension | A | B | C | Scrutiny |
+|-----------|---|---|---|----------|
 | **W** – Weigh the problem | | | | High |
 | **O** – Outcome > overhead | | | | High |
 | **R** – Right-sized team | | | | High |
@@ -1864,7 +1867,7 @@ If < 3 checks pass, skip it.
 |-----------|---|---|---|
 | Cost of Delay | | | |
 | Cognitive Load | | | |
-| DORA Impact | | | |
+| Delivery Impact | | | |
 | Compliance | ✓/✗ | ✓/✗ | ✓/✗ |
 
 ---
@@ -1963,13 +1966,14 @@ If < 3 checks pass, skip it.
 
 **Dogma**: "Everything must be IaC (Terraform, Pulumi) or you're unprofessional"
 
-**Reality Check**: IaC shines in multi-environment estates (dev, staging, prod × 3 regions = 9 configs). For a single VM, manual `terraform apply` can be heavier than the work itself.
+**Reality Check**: IaC shines in multi-environment estates (dev, staging, prod × 3 regions = 9 configs). For disposable infrastructure, manual setup may be fine; for production, at least script or document provisioning enough to recover.
 
 **WORTH Application**:
 
 | Infrastructure Scale | IaC Worth It? | Why |
 |---------------------|--------------|-----|
-| 1-2 VMs | ✗ No | Manual setup faster; fewer changes |
+| 1-2 disposable VMs | ✗ Usually no | Manual setup may be faster; fewer changes |
+| 1-2 production VMs | Depends | Script or codify enough to recover and audit |
 | 3-10 servers, multiple envs | ✓ Yes | Reproducibility saves time; disaster recovery |
 | 50+ resources, multi-region | ✓ Definitely | Manual impossible; drift prevention critical |
 
@@ -2027,7 +2031,7 @@ If < 3 checks pass, skip it.
 
 **Dogma**: "DDD means full bounded-context everything with event storming and aggregates"
 
-**Reality Check**: Heavy DDD artifacts pay off in large, domain-rich organizations, not in simple CRUD SaaS v1.
+**Reality Check**: Heavy DDD artifacts pay off in domain-rich areas with complex business rules, not in simple CRUD SaaS v1. Event storming, aggregates, and bounded contexts are tools to apply selectively, not a package deal.
 
 **WORTH Application**:
 
@@ -2035,7 +2039,7 @@ If < 3 checks pass, skip it.
 |------------------|----------|--------------------------------|
 | Simple CRUD (admin panel, CMS) | ✗ Overkill | ✓ Basic modules enough |
 | Medium (e-commerce, SaaS) | Selective use | ✓ Yes, skip event sourcing |
-| Complex (fintech, healthcare) | ✓ Justified | - |
+| Complex domain rules (payments, clinical workflows, trading) | ✓ Often justified | - |
 
 ---
 
