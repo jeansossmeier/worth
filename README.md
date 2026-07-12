@@ -2,12 +2,30 @@
 
 *A pragmatic approach to cutting through dogma and making engineering choices that deliver real value*
 
-**Version:** 1.0a \
+**Version:** 1.1 \
 **Author:** Jean Luck Sossmeier \
-**Date:** October 2025 \
+**Date:** October 2025 (updated July 2026) \
 **Repository:** [github.com/jeansossmeier/worth](https://github.com/jeansossmeier/worth)
 
 > **Important boundaries:** WORTH is a decision aid, not legal, financial, security, compliance, or procurement advice. Examples, costs, thresholds, and outcomes are illustrative unless directly cited. Verify current vendor pricing, regional availability, legal obligations, and compliance requirements with qualified professionals before relying on them.
+
+---
+
+## WORTH in 30 Seconds
+
+Before adopting any technology, pattern, or practice, score five questions from 1 (clear no) to 5 (strong yes, backed by evidence):
+
+| Dimension | Question |
+|-----------|----------|
+| **W**eigh the problem | Is the pain concrete, frequent, and business-critical? |
+| **O**utcome > overhead | Does the benefit clearly exceed the total cost? |
+| **R**ight-sized for the team | Can the current team build and run it confidently? |
+| **T**ime-to-value | Does it deliver value within the quarter? |
+| **H**orizon flexibility | Can you reverse or adapt the choice later? |
+
+**The rule**: proceed past discussion only with an evidence-backed "yes" on at least 3 of 5, a total of 15+/25, and no dimension at 1 (a 2 needs explicit mitigation). Otherwise: simplify, pilot, or wait.
+
+[Run your first five-minute scorecard →](#scorecard)
 
 ---
 
@@ -44,6 +62,9 @@
 - [B. Decision Tables Consolidated](#appendix-b)
 - [C. Additional Dogmas](#appendix-c)
 - [D. Glossary & Further Reading](#appendix-d)
+
+### Closing
+- [Conclusion](#conclusion)
 
 ---
 
@@ -102,7 +123,7 @@ If you can't answer "yes" to at least three of these five questions with clear e
 
 **Senior Developers**: Needing guard-rails to push back on dogma without seeming obstinate.
 
-**Teams of Any Size**: From solo developers to hundred-person engineering orgs: context-aware decision-making scales.
+**Teams of Any Size**: From solo developers to hundred-person engineering orgs, context-aware decision-making scales.
 
 ### How to Use This Document
 
@@ -114,7 +135,7 @@ This isn't a book you read cover-to-cover and shelve. It's a working framework y
 - **Part IV** shows you how to operationalize it in pull requests, ADRs, and team rituals
 - **Part V** provides extended case studies and guidance for specific contexts
 
-**If you're a solo developer or indie hacker**, skip directly to the [Solo Developer / Indie Hacker Mode](#blind-spots) section (embedded in Section 16) for simplified guidance tailored to one-person projects.
+**If you're a solo developer or indie hacker**, skip directly to the [Solo Developer / Indie Hacker Mode](#solo-mode) section (embedded in Section 16) for simplified guidance tailored to one-person projects.
 
 Start with the core framework in Section 2. Use the scorecard in Section 3 on your next decision. Refer back to domain-specific chapters as needed.
 
@@ -212,7 +233,7 @@ Calculate whether the benefit outweighs the total cost.
 
 **Example**: Migrating to a PaaS costs `$400/month` but saves 20 developer hours/month on infrastructure management. At `$100/hour` blended rate, that's `$2,000` in value for `$400` cost. Clear win. ✓
 
-**Regional Cost Note**: This framework uses US market rates circa 2024-2025. Adjust for your region:
+**Regional Cost Note**: The examples use approximate mid-2020s US market rates. Adjust for your region:
 - **US/Western Europe**: 1.0x (baseline: `$100-150/hour` blended rate)
 - **SF Bay Area/NYC**: 1.5x (`$150-225/hour`)
 - **Eastern Europe**: 0.5x (`$50-75/hour`)
@@ -301,6 +322,15 @@ Evaluate whether this choice keeps options open or creates lock-in.
 
 **Counter-example**: Building entire architecture around a startup vendor's beta SDK with no export functionality. ✗
 
+### When WORTH Doesn't Apply
+
+WORTH is built for operational adoption decisions: tools, platforms, architecture, process. Handle these differently:
+
+- **Pure research and deliberate innovation bets**: These score low by design (no proven problem, delayed value). Decide them explicitly as time-boxed bets with their own budget; don't torture the scorecard into approving them.
+- **Emergencies**: During an incident or active security breach, act first. Run WORTH later on the permanent fix.
+- **One-way strategic bets**: Company-defining choices (acquisitions, platform pivots) need deeper analysis than a five-question scorecard. WORTH informs the conversation; it doesn't decide it.
+- **Trivial, cheap, reversible choices**: If it takes an hour and reverts in a minute, just decide.
+
 ---
 
 <a name="scorecard"></a>
@@ -333,6 +363,8 @@ Example: "Release lead-time increased from 3 days to 9 days after adding the rep
 - **2**: Probably no, concerns outweigh benefits
 - **1**: Clear no, red flags present
 
+**Scoring convention**: when comparing options for the same decision, score **W identically for every option**. W rates the problem, not the solution; option-specific strengths and weaknesses belong in O, R, T, and H.
+
 **Step 3: Calculate Total**
 
 Add the five scores:
@@ -342,7 +374,7 @@ Add the five scores:
 
 **Calibration Note**: These thresholds are author heuristics, not validated benchmarks. Adjust how much process you use, but keep the floor check:
 - **Small teams (< 15 people)**: Narrow the scope and prefer reversible experiments; do not lower the R/T safety floor just because the team is small
-- **Large teams (50+ people)**: Consider raising to 17+/21+/24+ as more problems emerge at scale
+- **Large teams (50+ people)**: Consider raising the bars (pilot at 17+, adoption at 24+) as more problems emerge at scale
 - **Risk-averse domains (fintech, healthcare)**: Raise thresholds; require higher confidence
 - **Fast-moving startups**: Lower thresholds slightly; bias toward action
 
@@ -406,7 +438,7 @@ Record your scoring in an Architecture Decision Record so the rationale is searc
 
 **Total**: 18/25
 
-**Verdict**: ✓ Probably worth it. Low cost, raises consistency, reversible. Proceed if it doesn't block higher-priority work.
+**Verdict**: ✓ Worth a lightweight pilot. Low cost, raises consistency, reversible in a day. Note the floor rule: W=2 means the pain is minor, so the mitigation is to time-box the work and keep it easy to delete. Drop it the moment it competes with higher-priority work.
 
 ---
 
@@ -426,7 +458,8 @@ Add a "WORTH Check" section:
 
 **Total Score**: __/25
 **Clear yes count**: __/5
-**Any score ≤ 2?** __ If yes, mitigation required before adoption.
+**Any score of 1?** __ If yes, do not adopt.
+**Any score of 2?** __ If yes, explicit mitigation required before adoption.
 **Unknowns?** __ Replace unknowns with evidence through a spike or pilot.
 **Hard constraints passed?** Security / compliance / privacy / procurement: __
 ```
@@ -448,7 +481,7 @@ Include WORTH scoring in every ADR:
 | Time-to-value | 4 | First value in 2 weeks; full ROI in 3 months |
 | Horizon | 5 | Standards-based; multiple vendors available |
 
-**Total**: 20/25 → **Pilot only; adoption requires no floor violations**
+**Total**: 20/25 → **Pilot only (15-20 band); adoption requires 21+ and a clean floor**
 
 ## Decision
 [Record the choice]
@@ -462,12 +495,7 @@ Re-score if: team shrinks below 2 experienced operators, cost increases 2x, or m
 
 #### Quarterly Architecture Review
 
-Rotate a "devil's advocate" who:
-1. Picks one live component
-2. Re-scores it with current context
-3. Proposes simplification if score drops below 15
-
-This catches accumulating complexity and prevents zombie technologies.
+Rotate a "devil's advocate" who re-scores one live component each quarter and proposes simplification if it drops below 15. Section 11 shows the full ritual, including a worked retro example. This catches accumulating complexity and prevents zombie technologies.
 
 ---
 
@@ -486,7 +514,7 @@ A choice can be "cheap" but still catastrophic if it postpones revenue or feedba
 
 **How to Measure**:
 - Express benefit in dollars per month shipped earlier
-- Use Don Reinertsen's formula: Cost of Delay = (Weekly Value) × (Weeks Delayed)
+- Use a simple approximation: Cost of Delay ≈ (Weekly Value) × (Weeks Delayed); see Reinertsen's *Principles of Product Development Flow* for the rigorous treatment
 - Plot cash flow over 12-24 months to visualize payback
 
 **Example**: A feature migration to microservices delays shipping by 3 months. If each month of delay costs `$50k` in lost revenue, the migration carries a hidden `$150k` cost even if engineering time is "free."
@@ -505,7 +533,7 @@ High-skill tools are fine until cognitive load crosses what a single team can sa
 **Why It Matters**: Teams have limited mental bandwidth. Each new technology, pattern, or service consumes attention that could go toward delivering features.
 
 **How to Measure**:
-- Team Topologies frames cognitive load through team types and interaction modes such as collaboration, X-as-a-Service, and facilitation
+- Use Team Topologies' team types and interaction modes (collaboration, X-as-a-Service, facilitation) to identify where cognitive load concentrates
 - Count technologies in the stack (languages, frameworks, databases, queues, deployment platforms)
 - Survey developers: "Do you feel overloaded?" (1-5 scale)
 
@@ -518,7 +546,7 @@ High-skill tools are fine until cognitive load crosses what a single team can sa
 
 **Further Reading**:
 - *Team Topologies* by Matthew Skelton and Manuel Pais
-- Martin Fowler's cognitive load article
+- Martin Fowler's *Team Topologies* bliki entry, which centers on team cognitive load: [martinfowler.com/bliki/TeamTopologies.html](https://martinfowler.com/bliki/TeamTopologies.html)
 
 ---
 
@@ -682,7 +710,7 @@ Energy footprint or community support can be differentiators in hiring and PR.
 **Why It Matters**: Green tech attracts talent and customers. Open-source contributions build community goodwill and reduce vendor lock-in.
 
 **Considerations**:
-- Data center energy consumption (cloud regions vary 10x in carbon intensity)
+- Data center energy consumption (cloud regions can vary by roughly 10x in carbon intensity)
 - Open-source sustainability (are we giving back or just taking?)
 - Worker conditions (are gig workers treated fairly?)
 
@@ -727,17 +755,19 @@ For high-stakes decisions, use this expanded canvas:
 ## Scoring Table
 | Dimension | Option 1 | Option 2 | Option 3 | Scrutiny |
 |-----------|----------|----------|----------|----------|
-| W – Weigh | 3 | 4 | 5 | High |
+| W – Weigh | 4 | 4 | 4 | High |
 | O – Outcome | 2 | 4 | 3 | High |
 | R – Right-sized | 5 | 4 | 2 | High |
 | T – Time-to-value | 5 | 3 | 1 | High |
 | H – Horizon | 4 | 4 | 2 | Medium |
-| **Core WORTH** | **19** | **19** | **13** | Unweighted |
+| **Core WORTH** | **20** | **19** | **12** | Unweighted |
 | Cost of Delay | 4 | 3 | 1 | Discussion lens |
 | Cognitive Load | 5 | 3 | 1 | Discussion lens |
 | Delivery Impact | 3 | 4 | 2 | Discussion lens |
 | Risk | 5 | 3 | 2 | Discussion lens |
 | Strategic Fit | 3 | 4 | 5 | Discussion lens |
+
+*W is identical across options: it rates the problem, not the solution.*
 
 ## Bias Check
 - Option 1: Low risk might mean stagnation
@@ -786,23 +816,23 @@ Use a 1-5 scale. Mark unknowns as `U`, not as a number. A `U` means "not enough 
 | Dimension | Option A | Option B | Option C |
 |-----------|----------|----------|----------|
 | W – Weigh | 4 | 4 | 4 |
-| O – Outcome | 3 | 4 | 3 |
+| O – Outcome | 2 | 4 | 3 |
 | R – Right-sized | 5 | 4 | 2 |
 | T – Time-to-value | 5 | 3 | 1 |
 | H – Horizon | 4 | 4 | 2 |
-| **Core Total** | **21** | **19** | **12** |
+| **Core Total** | **20** | **19** | **12** |
 
 #### Step 4: Highlight Biggest Sensitivity
 
 Flag critical assumptions.
 
-**Example**: Option C wins only if we hire two SREs in next 30 days (unlikely). Mark as red flag.
+**Example**: Option C only becomes viable if we hire two SREs in the next 30 days (unlikely). Mark as red flag.
 
 #### Step 5: Decide + Set Kill Switch
 
 Make the call and define failure conditions.
 
-**Decision**: Pick Option B (extract reports into separate process).
+**Decision**: Pick Option B (extract reports into separate process). Option A totals higher (20), but its Outcome score of 2 has no available mitigation: a read replica speeds queries without decoupling releases, which is the stated pain. B is the highest-scoring option that actually addresses the problem; run it as a pilot (15-20 band).
 
 **Kill Switch**: If DORA lead time stays above 5 days after 2 sprints, rollback to Option A and revisit.
 
@@ -818,6 +848,8 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 *Except where a specific company is named and publicly documented (such as Amazon Prime Video below), the cases and figures in this document are illustrative composites of common patterns, not measurements from a single named organization.*
 
 ### Case 1: Three-Developer Bootstrapped SaaS Debates Kubernetes
+
+*This revisits Example 1 from Section 3, now with the business context attached.*
 
 **Context**:
 - €300/month budget
@@ -849,22 +881,22 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 - Release collisions weekly
 - Current: Modular monolith
 
-**WORTH Outcome**: Pilot in stages; adoption requires evidence from the first extraction
+**WORTH Outcome**: Full migration scores below the line; pilot the staged extraction instead
 
-**Rationale**:
+**Rationale** (scoring the full 10+ service migration):
 - **W = 4**: Real pain, teams blocking each other
 - **O = 3**: Faster scaling, but ops overhead increases
-- **R = 3**: Two SREs on staff with experience
-- **T = 2**: Full migration takes 6 months
-- **H = 3**: Can phase in gradually
+- **R = 2**: Two SREs on staff, but running 10+ services exceeds today's platform capacity
+- **T = 1**: Full migration takes 8-12 months
+- **H = 4**: Services keep options open and can be phased in gradually
 
-**Total**: 15/25
+**Total**: 14/25
 
-**Verdict**: Pilot only. Start with the strongest bounded context. Extract payment processing first, measure delivery and operational impact, and expand only if the floor-rule concerns are mitigated.
+**Verdict**: ✗ for full microservices (below 15, and T=1 fails the floor check). But the pain is real (W=4), so pilot the hybrid path: extract the strongest bounded context first, measure delivery and operational impact, and expand only with evidence. (Case Study 2 in Section 15 scores this same composite option-by-option; the staged extraction lands at 20/25, pilot band.)
 
 **Illustrative pilot path**:
 1. Extracted payments service (high isolation, PCI boundary)
-2. Ran for 3 months, measured deployment frequency (+40%)
+2. Ran for 3 months, measured deployment frequency (+30%)
 3. Extracted auth service
 4. Kept reporting and admin in monolith (low change rate, high coupling)
 
@@ -874,7 +906,7 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 
 ### Case 3: Amazon Prime Video's Targeted Service Consolidation
 
-**Context**: Amazon reported that one Prime Video audio/video monitoring workload reduced infrastructure cost by over 90% after consolidating a distributed serverless design into a single-process service running on EC2/ECS. Pin the exact source before quoting this in formal publication.
+**Context**: Amazon reported that one Prime Video audio/video monitoring workload reduced infrastructure cost by about 90% after consolidating a distributed serverless design into a single-process service running on EC2/ECS. The original Prime Video Tech post has not stayed at a stable URL; InfoQ's May 2023 summary is a reliable secondary reference (see Further Reading below).
 
 **Why It's a Key Example**: This was **not** an abandonment of microservices. It illustrates that even at massive scale, architectural choices are component-specific, not all-or-nothing dogmas.
 
@@ -885,21 +917,21 @@ Set auto-reminder 90 days later in your ADR system to revisit the score with new
 - Used AWS Step Functions for orchestration
 - Hit scaling limits and cost overruns for this specific use case
 
-**WORTH Re-evaluation**:
+**WORTH Re-evaluation** (scores are the author's retrospective interpretation of the public write-up):
 - **W = 3**: Problem still exists but architecture didn't solve it
 - **O = 1**: Infrastructure costs exploded relative to value
-- **R = 2**: Operational complexity became unsustainable
+- **R = 2**: The distributed design hit scaling limits and orchestration costs the team could not operate around
 - **T = 1**: The architecture delayed value because the cost/scaling bottleneck dominated the design
 - **H = 2**: Hard to back out, but they did it anyway
 
 **Total**: 9/25 (after implementation)
 
-**Reported change**: The monitoring workload was consolidated into a single process while keeping logical module boundaries. Amazon reported infrastructure cost reduction of over 90%.
+**Reported change**: The monitoring workload was consolidated into a single process while keeping logical module boundaries. Amazon reported infrastructure cost reduction of about 90%.
 
-**Lesson**: **Revisit WORTH scores yearly**. Scale and cost assumptions can flip, making previously "correct" architecture wrong. Also: architectural decisions are component-specific, not all-or-nothing. You can consolidate one service while keeping others distributed.
+**Lesson**: **Revisit WORTH scores regularly** (quarterly for live components, yearly at minimum for settled decisions). Scale and cost assumptions can flip, making previously "correct" architecture wrong. Also: architectural decisions are component-specific, not all-or-nothing. You can consolidate one service while keeping others distributed.
 
 **Further Reading**:
-- Prime Video engineering write-up on scaling the audio/video monitoring service and reducing costs. Verify the current primary URL or archived copy before formal citation.
+- Prime Video engineering write-up, "Scaling up the Prime Video audio/video monitoring service and reducing costs by 90%" (2023). The original post has moved; a stable secondary summary: [InfoQ, "Prime Video Switched from Serverless to EC2 and ECS to Save Costs" (May 2023)](https://www.infoq.com/news/2023/05/prime-ec2-ecs-saves-costs/)
 
 ---
 
@@ -912,12 +944,12 @@ WORTH is a meta-filter. Before adopting any coding rule (Uncle Bob's Clean Code,
 
 ### How WORTH Sits Above Code Principles
 
-**If the rule says…** | **Ask with WORTH…** | **Worth it when…** | **Not worth it when…**
---------------------|-------------------|-------------------|---------------------
-"Wrap every primitive in a Value Object" (Object Calisthenics #3) | **O – Outcome > overhead**: Does the extra class reveal real behavior or validation? | Domain-heavy codebases (money, dates, IDs) where bugs are expensive | One-off scripts, data processing, throwaway ETL
-"Functions should do one thing" (Clean Code) | **R – Right-sized**: Do we have time to refactor, and will it help juniors reason faster? | Core modules touched daily, high change rate | Legacy subsystem slated for decommission in 3 months
-"No 'else' statements" (Object Calisthenics #2) | **H – Horizon flexibility**: Does banning else keep options open, or push us into contorted polymorphism? | Code that thrives on polymorphic behavior (strategy engines) | Simple data flows where a guard clause reads clearer
-"Depend upon abstractions, not concretions" (SOLID-D) | **W – Weigh the problem**: Are we actually swapping implementations? | Plugin systems, multi-cloud adapters | One cloud, one database, stable for years
+| **If the rule says…** | **Ask with WORTH…** | **Worth it when…** | **Not worth it when…** |
+|--------------------|-------------------|-------------------|---------------------|
+| "Wrap every primitive in a Value Object" (Object Calisthenics #3) | **O – Outcome > overhead**: Does the extra class reveal real behavior or validation? | Domain-heavy codebases (money, dates, IDs) where bugs are expensive | One-off scripts, data processing, throwaway ETL |
+| "Functions should do one thing" (Clean Code) | **R – Right-sized**: Do we have time to refactor, and will it help juniors reason faster? | Core modules touched daily, high change rate | Legacy subsystem slated for decommission in 3 months |
+| "No 'else' statements" (Object Calisthenics #2) | **H – Horizon flexibility**: Does banning else keep options open, or push us into contorted polymorphism? | Code that thrives on polymorphic behavior (strategy engines) | Simple data flows where a guard clause reads clearer |
+| "Depend upon abstractions, not concretions" (SOLID-D) | **W – Weigh the problem**: Are we actually swapping implementations? | Plugin systems, multi-cloud adapters | One cloud, one database, stable for years |
 
 ### Key Point
 
@@ -940,12 +972,12 @@ Clean Code: "Functions should do one thing"
 - [ ] T – Time-to-value: Complete in 3 days
 - [ ] H – Horizon: Easier to test and modify going forward
 
-**Total**: 4/5 → Proceed
+**Clear yeses**: 4/5 → qualitative gate passed; confirm with the full 1-5 scorecard and floor check before adoption
 ```
 
 #### Pull Request Bot
 
-If WORTH ≤ 3 out of 5, tag `#possible-over-engineering` for reviewer attention.
+If fewer than 3 of the 5 letters are a clear yes (a failing scorecard), or exactly 3 (a borderline pass), tag `#possible-over-engineering` for reviewer attention.
 
 #### Retro Audit
 
@@ -1045,7 +1077,7 @@ Instead, every guideline must pay rent in the form of clearer code, faster deliv
 
 **WORTH Check**: Risk & uncertainty – Which guarantee keeps revenue safest under network splits?
 
-**Choose AP (Availability + Partition)**: Global SaaS where up-to-date cart less critical than staying online
+**Choose AP (Availability + Partition)**: Global SaaS where an up-to-date cart is less critical than staying online
 
 **Choose CP (Consistency + Partition)**: Stock trading engine; tolerate brief downtime for correctness
 
@@ -1094,6 +1126,8 @@ This is the most contentious architecture debate. WORTH cuts through the noise.
 - **T = 3**: Migration has a staged path that creates measurable value before full extraction
 - **H = 4**: Polyglot flexibility, independent evolution
 
+Even this best-case profile tops out around 20/25, deliberately in the pilot band: microservices earn adoption through a measured pilot, not through the scorecard alone.
+
 **Signals**:
 - 3+ teams needing independent deploy cadence
 - Clear bounded contexts (payments, auth, catalog, etc.)
@@ -1122,9 +1156,11 @@ This is the most contentious architecture debate. WORTH cuts through the noise.
 
 | Option | W (Problem) | O (Outcome) | R (Team) | T (Time) | H (Horizon) | Total |
 |--------|-------------|-------------|----------|----------|-------------|-------|
-| **Bare VM** | 2 (simple needs) | 4 (cheap, fast) | 5 (everyone knows) | 5 (deploy today) | 3 (harder to scale) | **19** |
-| **PaaS** | 3 (want auto-scale) | 5 (instant value) | 5 (no ops needed) | 5 (deploy today) | 4 (vendor lock manageable) | **22** |
-| **Kubernetes** | 4 (complex needs) | 3 (powerful but heavy) | 2 (need expertise) | 1 (weeks to setup) | 5 (max flexibility) | **15, but fails floor** |
+| **Bare VM** | 3 (same problem) | 4 (cheap, fast) | 5 (everyone knows) | 5 (deploy today) | 3 (harder to scale) | **20** |
+| **PaaS** | 3 (same problem) | 5 (instant value) | 5 (no ops needed) | 5 (deploy today) | 4 (vendor lock manageable) | **22** |
+| **Kubernetes** | 3 (same problem) | 3 (powerful but heavy) | 2 (need expertise) | 1 (weeks to setup) | 5 (max flexibility) | **14, fails floor** |
+
+*Illustrative scores for a small-to-mid product team. W is identical across options: it rates the deployment problem, not the platform.*
 
 **Default for many small-to-mid product teams without special infrastructure constraints**: Start with PaaS or a simple VM. Treat vendor names as examples, not endorsements.
 
@@ -1143,7 +1179,7 @@ This is the most contentious architecture debate. WORTH cuts through the noise.
 
 **Why People Repeat It**: Tribal pride, blog benchmarks, echo chambers
 
-**Reality Check**: Match runtime, ecosystem, hiring market, and performance envelope to your needs. Switching costs eclipse eloquence.
+**Reality Check**: Match runtime, ecosystem, hiring market, and performance envelope to your needs. Switching costs eclipse elegance.
 
 **WORTH Analysis**:
 
@@ -1188,7 +1224,7 @@ This is the most contentious architecture debate. WORTH cuts through the noise.
 **Reality Check**: k8s ⇒ steep cognitive load; microservices ⇒ extra latency, ops, observability. Ask: "Will a single VM + CI keep us shipping faster for the next 12 months?"
 
 **The "You Are Not Netflix" Principle**:
-- Netflix: 1000+ engineers, millions of subscribers, polyglot services
+- Netflix: 1000+ engineers, hundreds of millions of subscribers, polyglot services
 - You: 3 engineers, 100 users, single product
 
 **WORTH Question**: Does the complexity pay off before we run out of runway?
@@ -1209,7 +1245,7 @@ This is the most contentious architecture debate. WORTH cuts through the noise.
 
 **Why People Repeat It**: Comfort for managers, audit trails for enterprises
 
-**Reality Check**: Process speed ∝ team size × coupling. Bureaucracy kills flow in small squads.
+**Reality Check**: Process overhead ∝ team size × coupling. Bureaucracy kills flow in small squads.
 
 **Spectrum**:
 - **Too Rigid**: SAFe for 5-person startup (planning ceremonies take longer than building)
@@ -1290,9 +1326,9 @@ Every story that adds durable complexity should link to its parent WORTH-scored 
 ```markdown
 ## Story: Add GraphQL endpoint for dashboard
 
-**Parent ADR**: #147 (GraphQL Migration - WORTH Score 18/25)
+**Parent ADR**: #147 (GraphQL Migration - WORTH Score 17/25)
 
-**Justification**: Reduces frontend API calls from 7 to 1, improving load time by 40%
+**Justification**: Reduces frontend API calls from 7 to 1; expected to improve load time by roughly 40%
 ```
 
 ---
@@ -1305,7 +1341,7 @@ Rotate a "devil's advocate" who:
 3. Proposes kill/simplify plan if score < 15
 
 **Example Retro**:
-- **Q1 2024**: Adopted Redis for caching (score: 19/25)
+- **Q1 2024**: Piloted, then adopted, Redis for caching (initial score: 19/25, pilot band)
 - **Q4 2024**: Team size halved, cache hit rate 12%, ops burden high
 - **Re-score**: 11/25
 - **Action**: Remove Redis, use in-memory cache, save `$200/month` + 5 hours/week ops
@@ -1354,7 +1390,7 @@ Rotate a "devil's advocate" who:
 
 **Why It Happens**: Hiring/training gaps; over-reliance on individual
 
-**Guard-rail**: WORTH "Right-sized" must score ≥ 3 → at least two on-call capable developers
+**Guard-rail**: Treat a "Right-sized" score below 3 as a hero-ops red flag; the required mitigation is at least two on-call capable developers
 
 **Example**:
 - k8s managed by single SRE
@@ -1421,12 +1457,12 @@ Track these to learn whether WORTH-driven decisions age well in your context:
 Quarterly developer survey:
 
 ```markdown
-Rate 1-5 (1 = low, 5 = overloaded):
+Rate agreement 1-5 (1 = strongly disagree, 5 = strongly agree):
 
 1. I feel overwhelmed by the number of technologies I need to know
-2. I can debug production issues without asking for help
-3. I understand how most of our systems work
-4. I have time to learn new skills
+2. I often need help to debug production issues
+3. Large parts of our systems are unclear to me
+4. I have no time to learn new skills
 
 Score < 12 = Healthy
 Score 12-16 = Warning
@@ -1439,8 +1475,8 @@ Score > 16 = Overloaded (simplify stack)
 
 Track time from "proposal" to "decision made":
 
-- **Before WORTH**: Median ______ of debate
-- **After WORTH**: Median ______ with scorecard
+- **Before WORTH**: Median time from proposal to decision: ______
+- **After WORTH**: Median time with scorecard: ______
 
 **Goal**: Reduce decision paralysis while maintaining quality. Fill in your own baseline; this document does not claim a universal improvement.
 
@@ -1513,11 +1549,11 @@ To make WORTH a team-wide habit, it needs to be embedded in the daily rituals of
 ### Start Small
 
 1.  **Pick one pending decision** (technology, architecture, process).
-2.  **Fill out the WORTH scorecard** with the team (15 minutes max).
+2.  **Fill out the WORTH scorecard** (5 minutes solo to draft, 15 minutes max with the team).
 3.  **Share the result** and make a call with explicit kill criteria.
 4.  **Set a 90-day reminder** to re-score the decision with real data.
 
-Repeat this process. Over time, asking "Is it worth it?" becomes muscle memory, helping your team stop chasing hype and start compounding value.
+Repeat this process. The five questions soon become the default first response to any new proposal, long before anyone books a meeting about it.
 
 ---
 
@@ -1528,10 +1564,10 @@ Repeat this process. Over time, asking "Is it worth it?" becomes muscle memory, 
 
 *These case studies are illustrative composites of common patterns; the figures are representative rather than measured from a single named company.*
 
-#### Case Study 1: Bootstrapped SaaS - Railway Over Kubernetes
+### Case Study 1: Bootstrapped SaaS – Railway Over Kubernetes
 
 **Context**:
-- 2 developers (full-stack)
+- 3 developers (full-stack)
 - €300/month runway
 - MVP targeting small businesses
 - Goal: Revenue within 90 days
@@ -1550,14 +1586,16 @@ Repeat this process. Over time, asking "Is it worth it?" becomes muscle memory, 
 
 | Dimension | VM | Railway | k8s |
 |-----------|-----|---------|-----|
-| W – Weigh | 3 | 3 | 2 |
+| W – Weigh | 2 | 2 | 2 |
 | O – Outcome | 4 | 5 | 1 |
 | R – Right-sized | 4 | 5 | 1 |
 | T – Time-to-value | 5 | 5 | 1 |
-| H – Horizon | 3 | 4 | 5 |
-| **Total** | **19** | **22** | **10** |
+| H – Horizon | 3 | 4 | 3 |
+| **Total** | **18** | **21** | **8** |
 
-**Decision**: Railway (score: 22/25)
+*W is scored identically across options: the deployment problem is the same whichever platform solves it. The k8s column matches the scorecard for this same scenario in Sections 3 and 6.*
+
+**Decision**: Railway (score: 21/25)
 
 **Rationale**: Maximize time-to-value. Can ship MVP this week. Budget-friendly. Easy migration path if growth demands it.
 
@@ -1572,13 +1610,13 @@ Repeat this process. Over time, asking "Is it worth it?" becomes muscle memory, 
 - Re-score only when deployment, reliability, workload scheduling, or cost constraints become concrete
 
 **Lessons Learned**:
-- PaaS removed all infrastructure distraction
+- PaaS removed nearly all infrastructure distraction
 - Delayed optimization was correct call
-- Now at scale where k8s might be justified (revisiting at $50k MRR)
+- Now approaching scale where k8s might be justified (re-evaluate past 10,000+ daily active users)
 
 ---
 
-#### Case Study 2: Fintech Scale-Up - Hybrid Microservices
+### Case Study 2: Fintech Scale-Up – Hybrid Microservices
 
 **Context**:
 - 40 developers, 4 teams
@@ -1600,12 +1638,14 @@ Repeat this process. Over time, asking "Is it worth it?" becomes muscle memory, 
 
 | Dimension | A: Modules | B: Hybrid | C: Full |
 |-----------|------------|-----------|---------|
-| W – Weigh | 3 | 4 | 4 |
-| O – Outcome | 3 | 4 | 3 |
+| W – Weigh | 4 | 4 | 4 |
+| O – Outcome | 2 | 4 | 3 |
 | R – Right-sized | 5 | 4 | 2 |
 | T – Time-to-value | 5 | 3 | 1 |
 | H – Horizon | 4 | 5 | 4 |
 | **Total** | **20** | **20** | **14** |
+
+*W is identical across options (the deployment-collision problem is the same regardless of solution). Option A's O reflects that tightening an already-modular monolith has limited headroom against release coupling.*
 
 **Decision**: Option B (Hybrid) - score tied with A, but better horizon flexibility tipped decision
 
@@ -1638,6 +1678,10 @@ Repeat this process. Over time, asking "Is it worth it?" becomes muscle memory, 
 
 <a name="blind-spots"></a>
 ## 16. Blind Spots Addressed
+
+This section tackles objections and contexts the main flow doesn't address head-on: four dogmas with strong followings, additional decision lenses, and a dedicated mode for one-person projects. Where Section 10 debunks dogma broadly, these entries drill into specific high-stakes cases.
+
+### Dogmas Revisited
 
 #### Dogma: "TDD Is Mandatory or You're Reckless"
 
@@ -1677,7 +1721,7 @@ TDD struggles for:
 | Image resize API | Yes (async) | Low | Low | ✓ Lambda |
 | Real-time chat | No | High | High | ✗ PaaS/VM |
 
-**Rollback Story**: A startup moved to Lambda for all APIs. Debugging production issues took 5x longer (no SSH, CloudWatch delays). After 4 months, moved critical path back to EC2, kept async jobs on Lambda. Hybrid won.
+**Illustrative rollback story**: A startup moved to Lambda for all APIs. Debugging production issues took roughly 5x longer (no SSH, CloudWatch delays). After a few months, it moved the critical path back to EC2 and kept async jobs on Lambda. Hybrid won.
 
 ---
 
@@ -1727,8 +1771,8 @@ TDD struggles for:
 ```markdown
 ## Compliance Gate (complete BEFORE WORTH scoring)
 
-- [ ] PCI DSS requirements (if handling payments)
-- [ ] HIPAA requirements (if handling health data)
+- [ ] PCI DSS requirements (if handling card payments)
+- [ ] HIPAA requirements (if handling US health data as a covered entity or business associate)
 - [ ] GDPR/LGPD (if handling EU/Brazil personal data)
 - [ ] SOC 2 controls (if selling to enterprises)
 - [ ] Threat model reviewed (if internet-facing)
@@ -1746,7 +1790,7 @@ If ANY are blocked, the option is outside the adoption set until qualified secur
 
 | Storage Type | When It Wins | When It Loses |
 |--------------|--------------|---------------|
-| **PostgreSQL (relational)** | Relational data, strong transactional invariants, complex queries | Schemaless flexibility, some horizontal scaling shapes |
+| **PostgreSQL (relational)** | Relational data, strong transactional invariants, complex queries | Schemaless flexibility, certain horizontal-scaling patterns |
 | **MongoDB (document)** | Flexible document model, denormalized reads, tunable consistency | Complex joins or invariants if the model is poorly designed |
 | **Redis** | Caching, sessions, pub/sub | Primary data store, durability critical |
 | **NewSQL (CockroachDB)** | Need both ACID + horizontal scale | Low-write workloads, budget-constrained |
@@ -1795,6 +1839,7 @@ If ANY are blocked, the option is outside the adoption set until qualified secur
 
 ---
 
+<a name="solo-mode"></a>
 #### Solo Developer / Indie Hacker Mode
 
 **Blind Spot**: Most books ignore one-person projects.
@@ -1953,9 +1998,9 @@ If < 3 checks pass, skip it.
 
 | Option | Setup Time | Monthly Cost | Ops Burden | Flexibility | Best For |
 |--------|-----------|--------------|------------|-------------|----------|
-| **Bare VM** | 1 day | $20-100 | Medium | Low | Solo dev, learning, static sites |
-| **PaaS** | 2 hours | $20-500 | Minimal | Medium | Startups, small teams, rapid iteration |
-| **Kubernetes** | 2-4 weeks | $200+ | High | Very High | 50+ services, multi-cloud, large teams |
+| **Bare VM** | 1 day | `$20-100` | Medium | Low | Solo dev, learning, static sites |
+| **PaaS** | 2 hours | `$20-500` | Minimal | Medium | Startups, small teams, rapid iteration |
+| **Kubernetes** | 2-4 weeks | `$200+` | High | Very High | 50+ services, multi-cloud, large teams |
 
 ---
 
@@ -1966,7 +2011,7 @@ If < 3 checks pass, skip it.
 
 **Dogma**: "Everything must be IaC (Terraform, Pulumi) or you're unprofessional"
 
-**Reality Check**: IaC shines in multi-environment estates (dev, staging, prod × 3 regions = 9 configs). For disposable infrastructure, manual setup may be fine; for production, at least script or document provisioning enough to recover.
+**Reality Check**: IaC shines in multi-environment estates (dev, staging, prod × 3 regions = 9 configs). For disposable infrastructure, manual setup may be fine; for production, at minimum script or document the provisioning well enough to rebuild it.
 
 **WORTH Application**:
 
@@ -1975,7 +2020,7 @@ If < 3 checks pass, skip it.
 | 1-2 disposable VMs | ✗ Usually no | Manual setup may be faster; fewer changes |
 | 1-2 production VMs | Depends | Script or codify enough to recover and audit |
 | 3-10 servers, multiple envs | ✓ Yes | Reproducibility saves time; disaster recovery |
-| 50+ resources, multi-region | ✓ Definitely | Manual impossible; drift prevention critical |
+| 50+ resources, multi-region | ✓ Definitely | Manual management impractical; drift prevention critical |
 
 ---
 
@@ -1999,7 +2044,7 @@ If < 3 checks pass, skip it.
 
 **Dogma**: "Agile = daily standups + two-week sprints, non-negotiable"
 
-**Reality Check**: Async tools (Linear, Tuple, Loom) yield same visibility for remote micro-teams without synchronous overhead.
+**Reality Check**: Async tools (Linear, Loom, written standup posts) can yield comparable visibility for remote micro-teams without synchronous overhead.
 
 **WORTH Application**:
 
@@ -2015,7 +2060,7 @@ If < 3 checks pass, skip it.
 
 **Dogma**: "Only merge via long-running release branches (Git Flow)"
 
-**Reality Check**: Trunk-based development with small PRs often halves merge conflicts and lead time.
+**Reality Check**: Trunk-based development with small PRs often substantially reduces merge conflicts and lead time.
 
 **WORTH Application**:
 
@@ -2050,11 +2095,11 @@ If < 3 checks pass, skip it.
 
 **ADR (Architecture Decision Record)**: Document capturing important architectural decisions with context, options, and rationale.
 
-**DORA Metrics**: Four key metrics (deployment frequency, lead time, MTTR, change failure rate) predicting software delivery performance.
+**DORA Metrics**: Four key metrics (deployment frequency, lead time, MTTR, change failure rate) measuring software delivery performance; DORA research associates them with organizational outcomes.
 
 **Cognitive Load**: Mental effort required to understand and operate a system; teams have finite capacity.
 
-**Cost of Delay**: Economic impact of postponing value delivery; calculated as (weekly value) × (weeks delayed).
+**Cost of Delay**: Economic impact of postponing value delivery; approximated as (weekly value) × (weeks delayed).
 
 **PaaS (Platform as a Service)**: Cloud hosting that abstracts infrastructure (Heroku, Railway, Render).
 
@@ -2111,10 +2156,11 @@ This framework improves through real-world application. Share your WORTH decisio
 **Lesson**: [What you'd do differently]
 ```
 
-Submit case studies and feedback to: **github.com/jeansossmeier/worth**
+Submit case studies and feedback to: **[github.com/jeansossmeier/worth](https://github.com/jeansossmeier/worth)**
 
 ---
 
+<a name="conclusion"></a>
 ## Conclusion
 
 ### The Core Message
